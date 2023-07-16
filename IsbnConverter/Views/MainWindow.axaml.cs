@@ -1,41 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
 
-namespace IsbnConverter
+namespace IsbnConverter.Views;
+
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+    private const string Good = "✔️";
+    private const string Bad = "❌";
+    private readonly SemaphoreSlim UpLock = new(1, 1);
 
-        private const string Good = "✔️";
-        private const string Bad = "❌";
-        private readonly SemaphoreSlim UpLock = new(1, 1);
-        
+    public MainWindow()
+    {
+        InitializeComponent();
+    }
+    
+    public override void Show()
+    {
+        base.Show();
+        App.OnThemeChanged(this, EventArgs.Empty);
+    }
         private void Isbn10_OnTextChanged(object? sender, TextChangedEventArgs? e)
         {
             if (Isbn10Check is null)
                 return;
 
-            var isbn10 = Isbn10.Text.ToUpperInvariant().Replace("-", "").Replace(" ", "");
+            var isbn10 = Isbn10!.Text!.ToUpperInvariant().Replace("-", "").Replace(" ", "");
             if (isbn10.Length < 10)
             {
                 Isbn10Check.Text = "";
@@ -67,7 +60,7 @@ namespace IsbnConverter
             if (Isbn13Check is null)
                 return;
 
-            var isbn13 = Isbn13.Text.ToUpperInvariant().Replace("-", "").Replace(" ", "");
+            var isbn13 = Isbn13!.Text!.ToUpperInvariant().Replace("-", "").Replace(" ", "");
             if (isbn13.Length < 13)
             {
                 Isbn13Check.Text = "";
@@ -140,7 +133,8 @@ namespace IsbnConverter
             Isbn13.Copy();
         }
 
-        private void Isbn10_OnGotFocus(object sender, RoutedEventArgs e) => Isbn10?.SelectAll();
-        private void Isbn13_OnGotFocus(object sender, RoutedEventArgs e) => Isbn13?.SelectAll();
-    }
+        private void Isbn10_OnGotFocus(object sender, GotFocusEventArgs e) => Isbn10?.SelectAll();
+        private void Isbn13_OnGotFocus(object sender, GotFocusEventArgs e) => Isbn13?.SelectAll();
+        private void Isbn10_OnPointerReleased(object? sender, PointerReleasedEventArgs e) => Isbn10?.SelectAll();
+        private void Isbn13_OnPointerReleased(object? sender, PointerReleasedEventArgs e) => Isbn13?.SelectAll();
 }
