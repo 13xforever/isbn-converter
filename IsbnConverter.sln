@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{630E9D95-DED0-4A65-B69D-E9D6E28D4019}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		publish.ps1 = publish.ps1
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsbnConverter", "IsbnConverter\IsbnConverter.csproj", "{85B509C4-CDF6-43CA-8D24-B6D2548EDB05}"
