@@ -67,7 +67,7 @@
                     <WrapPanel Grid.Row="0">
                         <Label Target="{Binding ElementName=Isbn10}" RenderOptions.TextRenderingMode="Antialias">ISBN-10:</Label>
                         <TextBox Name="Isbn10" Width="100" VerticalContentAlignment="Center" TextChanged="Isbn10_OnTextChanged" GotFocus="Isbn10_OnGotFocus" PointerReleased="Isbn10_OnPointerReleased"></TextBox>
-                        <TextBlock Name="Isbn10Check" Margin="4 0 0 0" FontFamily="Segoe UI Emoji" Width="24" FontSize="16" Padding="0" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Name="Isbn10Check" Margin="4 0 0 0" FontFamily="Segoe Fluent Icons" Width="28" FontSize="18" FontWeight="Bold" Padding="0" VerticalAlignment="Center" RenderOptions.TextRenderingMode="Antialias"></TextBlock>
                     </WrapPanel>
                     <WrapPanel Grid.Row="1" Margin="4 12 4 4" HorizontalAlignment="Right">
                         <Button Width="24" Height="24" Padding="0" FontFamily="Segoe Fluent Icons" RenderOptions.TextRenderingMode="Antialias" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Copy10_OnClick"></Button>
@@ -84,7 +84,7 @@
                     <WrapPanel Grid.Row="0">
                         <Label Target="{Binding ElementName=Isbn13}" RenderOptions.TextRenderingMode="Antialias">ISBN-13:</Label>
                         <TextBox Name="Isbn13" Width="140" VerticalContentAlignment="Center" TextChanged="Isbn13_OnTextChanged" GotFocus="Isbn13_OnGotFocus" PointerReleased="Isbn13_OnPointerReleased"></TextBox>
-                        <TextBlock Name="Isbn13Check" Margin="4 0 0 0" FontFamily="Segoe UI Emoji" Width="24" FontSize="16" Padding="0" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Name="Isbn13Check" Margin="4 0 0 0" FontFamily="Segoe Fluent Icons" Width="28" FontSize="18" FontWeight="Bold" Padding="0" VerticalAlignment="Center" RenderOptions.TextRenderingMode="Antialias"></TextBlock>
                     </WrapPanel>
                     <WrapPanel Grid.Row="1" Margin="4 12 4 4" HorizontalAlignment="Right">
                         <Button Width="24" Height="24" Padding="0" FontFamily="Segoe Fluent Icons" RenderOptions.TextRenderingMode="Antialias" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Copy13_OnClick"></Button>

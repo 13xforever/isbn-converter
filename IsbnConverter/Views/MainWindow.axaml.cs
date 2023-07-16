@@ -4,13 +4,16 @@ using System.Threading;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 
 namespace IsbnConverter.Views;
 
 public partial class MainWindow : Window
 {
-    private const string Good = "✔️";
-    private const string Bad = "❌";
+    private const string Good = "\ue73e️";
+    private const string Bad = "\ue783";
+    private static readonly IBrush GoodBrush = Brushes.Green;
+    private static readonly IBrush BadBrush = Brushes.Red;
     private readonly SemaphoreSlim UpLock = new(1, 1);
 
     public MainWindow()
@@ -37,6 +40,7 @@ public partial class MainWindow : Window
             if (isbn10.Length > 10 || !isbn10.All(c => c is >= '0' and <= '9' or 'X'))
             {
                 Isbn10Check.Text = Bad;
+                Isbn10Check.Foreground = BadBrush;
                 return;
             }
 
@@ -44,6 +48,7 @@ public partial class MainWindow : Window
             if (crcVal == isbn10)
             {
                 Isbn10Check.Text = Good;
+                Isbn10Check.Foreground = GoodBrush;
                 if (UpLock.Wait(0))
                 {
                     var isbn13 = Calc13("978" + isbn10[..^1]);
@@ -52,7 +57,10 @@ public partial class MainWindow : Window
                 }
             }
             else
+            {
                 Isbn10Check.Text = Bad;
+                Isbn10Check.Foreground = BadBrush;
+            }
         }
 
         private void Isbn13_OnTextChanged(object? sender, TextChangedEventArgs? e)
@@ -69,6 +77,7 @@ public partial class MainWindow : Window
             if (isbn13.Length > 13 || !isbn13.All(c => c is >= '0' and <= '9'))
             {
                 Isbn13Check.Text = Bad;
+                Isbn13Check.Foreground = BadBrush;
                 return;
             }
 
@@ -76,6 +85,7 @@ public partial class MainWindow : Window
             if (crcVal == isbn13)
             {
                 Isbn13Check.Text = Good;
+                Isbn13Check.Foreground = GoodBrush;
                 if (UpLock.Wait(0))
                 {
                     var isbn10 = isbn13.StartsWith("978") ? Calc10(isbn13[3..^1]) : "N/A";
@@ -84,7 +94,10 @@ public partial class MainWindow : Window
                 }
             }
             else
+            {
                 Isbn13Check.Text = Bad;
+                Isbn13Check.Foreground = BadBrush;
+            }
         }
 
         private static string Calc10(string isbn10)
