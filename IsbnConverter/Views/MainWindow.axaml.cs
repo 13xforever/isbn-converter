@@ -1,9 +1,7 @@
 using System;
-using System.Threading;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Media;
 
 namespace IsbnConverter.Views;
 

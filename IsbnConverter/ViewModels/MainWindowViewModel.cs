@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace IsbnConverter.ViewModels;
