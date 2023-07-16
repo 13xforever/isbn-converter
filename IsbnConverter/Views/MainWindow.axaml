@@ -32,6 +32,8 @@
 
     <Window.Resources>
         <local:ColorConverter x:Key="ColorConverter"/>
+        <local:ValidationSymbolConverter x:Key="ValidationSymbolConverter"/>
+        <local:ValidationColorConverter x:Key="ValidationColorConverter"/>
     </Window.Resources>
 
     <Panel>
@@ -64,14 +66,29 @@
                         <RowDefinition Height="24"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
+                    <!-- Input -->
                     <WrapPanel Grid.Row="0">
                         <Label Target="{Binding ElementName=Isbn10}" RenderOptions.TextRenderingMode="Antialias">ISBN-10:</Label>
-                        <TextBox Name="Isbn10" Width="106" VerticalContentAlignment="Center" TextChanged="Isbn10_OnTextChanged" GotFocus="Isbn10_OnGotFocus" PointerReleased="Isbn10_OnPointerReleased"></TextBox>
-                        <TextBlock Name="Isbn10Check" Margin="4 0 0 0" FontFamily="Segoe Fluent Icons" Width="28" FontSize="18" FontWeight="Bold" Padding="0" VerticalAlignment="Center" RenderOptions.TextRenderingMode="Antialias"></TextBlock>
+                        <TextBox Name="Isbn10" Width="106" VerticalContentAlignment="Center"
+                                 GotFocus="Isbn10_OnGotFocus" PointerReleased="Isbn10_OnPointerReleased"
+                                 Text="{Binding Isbn10}"></TextBox>
+                        <TextBlock Name="Isbn10Check" Margin="4 0 0 0" Width="24" Height="24"
+                                   FontFamily="{StaticResource FontAwesomeSolid}" FontSize="18" FontWeight="Bold"
+                                   Padding="0" VerticalAlignment="Center" RenderOptions.TextRenderingMode="Antialias"
+                                   Foreground="{Binding Isbn10Valid, Converter={StaticResource ValidationColorConverter}}"
+                                   Text="{Binding Isbn10Valid, Converter={StaticResource ValidationSymbolConverter}}"></TextBlock>
                     </WrapPanel>
+                    <!-- Copy/Paste buttons -->
                     <WrapPanel Grid.Row="1" Margin="4 12 4 4" HorizontalAlignment="Right">
-                        <Button Width="24" Height="24" Padding="0" FontFamily="Segoe Fluent Icons" RenderOptions.TextRenderingMode="Antialias" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Copy10_OnClick"></Button>
-                        <Button Width="24" Height="24" Margin="4 0 28 0" Padding="0" FontFamily="Segoe Fluent Icons" RenderOptions.TextRenderingMode="Antialias" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Paste10_OnClick"></Button>
+                        <Button Width="24" Height="24" Padding="0"
+                                IsEnabled="{Binding Isbn10Valid}"
+                                FontFamily="{StaticResource FontAwesome}" RenderOptions.TextRenderingMode="Antialias"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                Click="Copy10_OnClick"></Button>
+                        <Button Width="24" Height="24" Margin="4 0 28 0" Padding="0"
+                                FontFamily="{StaticResource FontAwesome}" RenderOptions.TextRenderingMode="Antialias"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                Click="Paste10_OnClick"></Button>
                     </WrapPanel>
                 </Grid>
             </WrapPanel>
@@ -81,14 +98,29 @@
                         <RowDefinition Height="24"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
+                    <!-- Input -->
                     <WrapPanel Grid.Row="0">
                         <Label Target="{Binding ElementName=Isbn13}" RenderOptions.TextRenderingMode="Antialias">ISBN-13:</Label>
-                        <TextBox Name="Isbn13" Width="134" VerticalContentAlignment="Center" TextChanged="Isbn13_OnTextChanged" GotFocus="Isbn13_OnGotFocus" PointerReleased="Isbn13_OnPointerReleased"></TextBox>
-                        <TextBlock Name="Isbn13Check" Margin="4 0 0 0" FontFamily="Segoe Fluent Icons" Width="28" FontSize="18" FontWeight="Bold" Padding="0" VerticalAlignment="Center" RenderOptions.TextRenderingMode="Antialias"></TextBlock>
+                        <TextBox Name="Isbn13" Width="134" VerticalContentAlignment="Center"
+                                 GotFocus="Isbn13_OnGotFocus" PointerReleased="Isbn13_OnPointerReleased"
+                                 Text="{Binding Isbn13}"></TextBox>
+                        <TextBlock Name="Isbn13Check" Margin="4 0 0 0" Width="24" Height="24"
+                                   FontFamily="{StaticResource FontAwesomeSolid}" FontSize="18" FontWeight="Bold"
+                                   Padding="0" VerticalAlignment="Center" RenderOptions.TextRenderingMode="Antialias"
+                                   Foreground="{Binding Isbn13Valid, Converter={StaticResource ValidationColorConverter}}"
+                                   Text="{Binding Isbn13Valid, Converter={StaticResource ValidationSymbolConverter}}"></TextBlock>
                     </WrapPanel>
+                    <!-- Copy/Paste buttons -->
                     <WrapPanel Grid.Row="1" Margin="4 12 4 4" HorizontalAlignment="Right">
-                        <Button Width="24" Height="24" Padding="0" FontFamily="Segoe Fluent Icons" RenderOptions.TextRenderingMode="Antialias" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Copy13_OnClick"></Button>
-                        <Button Width="24" Height="24" Margin="4 0 28 0" Padding="0" FontFamily="Segoe Fluent Icons" RenderOptions.TextRenderingMode="Antialias" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Paste13_OnClick"></Button>
+                        <Button Width="24" Height="24" Padding="0"
+                                IsEnabled="{Binding Isbn13Valid}"
+                                FontFamily="{StaticResource FontAwesome}" RenderOptions.TextRenderingMode="Antialias"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                Click="Copy13_OnClick"></Button>
+                        <Button Width="24" Height="24" Margin="4 0 28 0" Padding="0"
+                                FontFamily="{StaticResource FontAwesome}" RenderOptions.TextRenderingMode="Antialias"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                Click="Paste13_OnClick"></Button>
                     </WrapPanel>
                 </Grid>
             </WrapPanel>
