@@ -1,0 +1,98 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:IsbnConverter.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IsbnConverter.Converters;assembly=IsbnConverter"
+        mc:Ignorable="d" d:DesignWidth="440" d:DesignHeight="110"
+        Width="440" Height="110"
+        x:Class="IsbnConverter.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        Topmost="True"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        SystemDecorations="Full"
+        
+        Background="Transparent"
+        TransparencyLevelHint="Mica, AcrylicBlur, Blur"
+        FontFamily="Segoe UI Variable"
+        FontSize="12"
+        
+        Icon="/Assets/barcodes.ico"
+        Title="ISBN Converter">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Window.Resources>
+        <local:ColorConverter x:Key="ColorConverter"/>
+    </Window.Resources>
+
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="{Binding TintColor, Converter={StaticResource ColorConverter}}"
+                    TintOpacity="{Binding TintOpacity}"
+                    MaterialOpacity="{Binding MaterialOpacity}"
+                    PlatformTransparencyCompensationLevel="{Binding LuminosityOpacity}"/>
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        
+        <Grid VerticalAlignment="Top" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="31"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" RenderOptions.TextRenderingMode="Antialias">ISBN Converter</TextBlock>
+            
+            <WrapPanel Grid.Column="0" Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <WrapPanel Grid.Row="0">
+                        <Label Target="{Binding ElementName=Isbn10}" RenderOptions.TextRenderingMode="Antialias">ISBN-10:</Label>
+                        <TextBox Name="Isbn10" Width="100" VerticalContentAlignment="Center" TextChanged="Isbn10_OnTextChanged" GotFocus="Isbn10_OnGotFocus" PointerReleased="Isbn10_OnPointerReleased"></TextBox>
+                        <TextBlock Name="Isbn10Check" Margin="4 0 0 0" FontFamily="Segoe Fluent Icons" Width="28" FontSize="18" FontWeight="Bold" Padding="0" VerticalAlignment="Center" RenderOptions.TextRenderingMode="Antialias"></TextBlock>
+                    </WrapPanel>
+                    <WrapPanel Grid.Row="1" Margin="4 12 4 4" HorizontalAlignment="Right">
+                        <Button Width="24" Height="24" Padding="0" FontFamily="Segoe Fluent Icons" RenderOptions.TextRenderingMode="Antialias" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Copy10_OnClick"></Button>
+                        <Button Width="24" Height="24" Margin="4 0 24 0" Padding="0" FontFamily="Segoe Fluent Icons" RenderOptions.TextRenderingMode="Antialias" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Paste10_OnClick"></Button>
+                    </WrapPanel>
+                </Grid>
+            </WrapPanel>
+            <WrapPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <WrapPanel Grid.Row="0">
+                        <Label Target="{Binding ElementName=Isbn13}" RenderOptions.TextRenderingMode="Antialias">ISBN-13:</Label>
+                        <TextBox Name="Isbn13" Width="140" VerticalContentAlignment="Center" TextChanged="Isbn13_OnTextChanged" GotFocus="Isbn13_OnGotFocus" PointerReleased="Isbn13_OnPointerReleased"></TextBox>
+                        <TextBlock Name="Isbn13Check" Margin="4 0 0 0" FontFamily="Segoe Fluent Icons" Width="28" FontSize="18" FontWeight="Bold" Padding="0" VerticalAlignment="Center" RenderOptions.TextRenderingMode="Antialias"></TextBlock>
+                    </WrapPanel>
+                    <WrapPanel Grid.Row="1" Margin="4 12 4 4" HorizontalAlignment="Right">
+                        <Button Width="24" Height="24" Padding="0" FontFamily="Segoe Fluent Icons" RenderOptions.TextRenderingMode="Antialias" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Copy13_OnClick"></Button>
+                        <Button Width="24" Height="24" Margin="4 0 24 0" Padding="0" FontFamily="Segoe Fluent Icons" RenderOptions.TextRenderingMode="Antialias" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Paste13_OnClick"></Button>
+                    </WrapPanel>
+                </Grid>
+            </WrapPanel>
+        </Grid>
+    </Panel>
+
+</Window>
