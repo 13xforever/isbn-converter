@@ -22,9 +22,10 @@ public partial class App : Application
         WindowTransparencyLevel.None,
     };
 
-    private readonly Lazy<bool> IsMicaCapable = new(() =>
+    private readonly Lazy<bool> isMicaCapable = new(() =>
         Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime { MainWindow: Window w }
-        && w.ActualTransparencyLevel == WindowTransparencyLevel.Mica);
+        && w.ActualTransparencyLevel == WindowTransparencyLevel.Mica
+    );
 
     public override void Initialize()
     {
@@ -42,15 +43,17 @@ public partial class App : Application
             desktop.MainWindow.Activated += OnActivated;
             desktop.MainWindow.Deactivated += OnDeactivated;
             desktop.MainWindow.ActualThemeVariantChanged += OnThemeChanged;
+            if (isMicaCapable.Value && desktop.MainWindow is Window w)
+            {
+                RenderOptions.SetTextRenderingMode(w, TextRenderingMode.Antialias);
+            }
         }
-
-        _ = IsMicaCapable.Value;
         base.OnFrameworkInitializationCompleted();
     }
 
     private void OnActivated(object? sender, EventArgs e)
     {
-        if (!IsMicaCapable.Value || sender is not Window w)
+        if (!isMicaCapable.Value || sender is not Window w)
             return;
 
         w.TransparencyLevelHint = DesiredTransparencyHints;
@@ -58,7 +61,7 @@ public partial class App : Application
 
     private void OnDeactivated(object? sender, EventArgs e)
     {
-        if (!IsMicaCapable.Value || sender is not Window { DataContext: MainWindowViewModel vm } w)
+        if (!isMicaCapable.Value || sender is not Window { DataContext: MainWindowViewModel vm } w)
             return;
 
         w.TransparencyLevelHint = Array.Empty<WindowTransparencyLevel>();
@@ -74,18 +77,8 @@ public partial class App : Application
             return;
 
         if (w.ActualThemeVariant == ThemeVariant.Light)
-        {
             vm.TintColor = ThemeConsts.LightThemeTintColor;
-            vm.TintOpacity = ThemeConsts.LightThemeTintOpacity;
-            vm.MaterialOpacity = ThemeConsts.LightThemeMaterialOpacity;
-            vm.LuminosityOpacity = ThemeConsts.LightThemeLuminosityOpacity;
-        }
         else if (w.ActualThemeVariant == ThemeVariant.Dark)
-        {
             vm.TintColor = ThemeConsts.DarkThemeTintColor;
-            vm.TintOpacity = ThemeConsts.DarkThemeTintOpacity;
-            vm.MaterialOpacity = ThemeConsts.DarkThemeMaterialOpacity;
-            vm.LuminosityOpacity = ThemeConsts.DarkThemeLuminosityOpacity;
-        }
     }
 }
