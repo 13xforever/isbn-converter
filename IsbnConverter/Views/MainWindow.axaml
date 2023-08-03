@@ -18,7 +18,7 @@
         
         Background="Transparent"
         TransparencyLevelHint="Mica, AcrylicBlur, Blur"
-        FontFamily="Segoe UI Variable"
+        FontFamily="Segoe UI Variable Text"
         FontSize="12"
         
         Icon="/Assets/barcodes.ico"
@@ -37,16 +37,10 @@
     </Window.Resources>
 
     <Panel>
-        <ExperimentalAcrylicBorder IsHitTestVisible="False">
-            <ExperimentalAcrylicBorder.Material>
-                <ExperimentalAcrylicMaterial
-                    BackgroundSource="Digger"
-                    TintColor="{Binding TintColor, Converter={StaticResource ColorConverter}}"
-                    TintOpacity="{Binding TintOpacity}"
-                    MaterialOpacity="{Binding MaterialOpacity}"
-                    PlatformTransparencyCompensationLevel="{Binding LuminosityOpacity}"/>
-            </ExperimentalAcrylicBorder.Material>
-        </ExperimentalAcrylicBorder>
+        <Border IsHitTestVisible="False"
+                Background="{Binding TintColor}"
+                IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=!IsActive}"
+        />
         
         <Grid VerticalAlignment="Top" Margin="8">
             <Grid.ColumnDefinitions>

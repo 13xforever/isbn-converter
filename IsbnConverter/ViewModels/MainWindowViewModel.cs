@@ -5,22 +5,14 @@ namespace IsbnConverter.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
-    [ObservableProperty]
-    private string tintColor = "#ffffff";
-    [ObservableProperty]
-    private double tintOpacity = 1.0;
-    [ObservableProperty]
-    private double materialOpacity = 0.69;
-    [ObservableProperty]
-    private double luminosityOpacity = 1.0;
-    [ObservableProperty]
-    private string isbn10 = "";
-    [ObservableProperty]
-    private string isbn13 = "";
-    [ObservableProperty]
-    private bool? isbn10Valid = null;
-    [ObservableProperty]
-    private bool? isbn13Valid = null;
+    [ObservableProperty] private string tintColor = "#ffffff";
+    [ObservableProperty] private double tintOpacity = 1.0;
+    [ObservableProperty] private double materialOpacity = 0.69;
+    [ObservableProperty] private double luminosityOpacity = 1.0;
+    [ObservableProperty] private string isbn10 = "";
+    [ObservableProperty] private string isbn13 = "";
+    [ObservableProperty] private bool? isbn10Valid = null;
+    [ObservableProperty] private bool? isbn13Valid = null;
 
     partial void OnIsbn10Changed(string value)
     {

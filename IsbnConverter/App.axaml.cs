@@ -2,7 +2,10 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Avalonia.Styling;
 using IsbnConverter.Utils;
 using IsbnConverter.ViewModels;
@@ -12,6 +15,17 @@ namespace IsbnConverter;
 
 public partial class App : Application
 {
+    private static readonly WindowTransparencyLevel[] DesiredTransparencyHints =
+    {
+        WindowTransparencyLevel.Mica,
+        WindowTransparencyLevel.AcrylicBlur,
+        WindowTransparencyLevel.None,
+    };
+
+    private readonly Lazy<bool> IsMicaCapable = new(() =>
+        Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime { MainWindow: Window w }
+        && w.ActualTransparencyLevel == WindowTransparencyLevel.Mica);
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -25,31 +39,53 @@ public partial class App : Application
             {
                 DataContext = new MainWindowViewModel(),
             };
+            desktop.MainWindow.Activated += OnActivated;
+            desktop.MainWindow.Deactivated += OnDeactivated;
             desktop.MainWindow.ActualThemeVariantChanged += OnThemeChanged;
         }
 
+        _ = IsMicaCapable.Value;
         base.OnFrameworkInitializationCompleted();
     }
 
-    internal static void OnThemeChanged(object? sender, EventArgs e)
+    private void OnActivated(object? sender, EventArgs e)
     {
-        if (sender is not Window { DataContext: MainWindowViewModel mainWindowViewModel } window)
+        if (!IsMicaCapable.Value || sender is not Window w)
             return;
 
-        if (window.ActualThemeVariant == ThemeVariant.Light)
-        {
-            mainWindowViewModel.TintColor = ThemeConsts.LightThemeTintColor;
-            mainWindowViewModel.TintOpacity = ThemeConsts.LightThemeTintOpacity;
-            mainWindowViewModel.MaterialOpacity = ThemeConsts.LightThemeMaterialOpacity;
-            mainWindowViewModel.LuminosityOpacity = ThemeConsts.LightThemeLuminosityOpacity;
-        }
-        else if (window.ActualThemeVariant == ThemeVariant.Dark)
-        {
-            mainWindowViewModel.TintColor = ThemeConsts.DarkThemeTintColor;
-            mainWindowViewModel.TintOpacity = ThemeConsts.DarkThemeTintOpacity;
-            mainWindowViewModel.MaterialOpacity = ThemeConsts.DarkThemeMaterialOpacity;
-            mainWindowViewModel.LuminosityOpacity = ThemeConsts.DarkThemeLuminosityOpacity;
-        }
+        w.TransparencyLevelHint = DesiredTransparencyHints;
+    }
+
+    private void OnDeactivated(object? sender, EventArgs e)
+    {
+        if (!IsMicaCapable.Value || sender is not Window { DataContext: MainWindowViewModel vm } w)
+            return;
+
+        w.TransparencyLevelHint = Array.Empty<WindowTransparencyLevel>();
+        if (w.ActualThemeVariant == ThemeVariant.Light)
+            vm.TintColor = ThemeConsts.LightThemeTintColor;
+        else if (w.ActualThemeVariant == ThemeVariant.Dark)
+            vm.TintColor = ThemeConsts.DarkThemeTintColor;
     }
     
+    internal static void OnThemeChanged(object? sender, EventArgs e)
+    {
+        if (sender is not Window { DataContext: MainWindowViewModel vm } w)
+            return;
+
+        if (w.ActualThemeVariant == ThemeVariant.Light)
+        {
+            vm.TintColor = ThemeConsts.LightThemeTintColor;
+            vm.TintOpacity = ThemeConsts.LightThemeTintOpacity;
+            vm.MaterialOpacity = ThemeConsts.LightThemeMaterialOpacity;
+            vm.LuminosityOpacity = ThemeConsts.LightThemeLuminosityOpacity;
+        }
+        else if (w.ActualThemeVariant == ThemeVariant.Dark)
+        {
+            vm.TintColor = ThemeConsts.DarkThemeTintColor;
+            vm.TintOpacity = ThemeConsts.DarkThemeTintOpacity;
+            vm.MaterialOpacity = ThemeConsts.DarkThemeMaterialOpacity;
+            vm.LuminosityOpacity = ThemeConsts.DarkThemeLuminosityOpacity;
+        }
+    }
 }
