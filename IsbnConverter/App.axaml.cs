@@ -2,8 +2,6 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Input;
-using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -27,10 +25,7 @@ public partial class App : Application
         && w.ActualTransparencyLevel == WindowTransparencyLevel.Mica
     );
 
-    public override void Initialize()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
+    public override void Initialize() => AvaloniaXamlLoader.Load(this);
 
     public override void OnFrameworkInitializationCompleted()
     {
@@ -44,9 +39,7 @@ public partial class App : Application
             desktop.MainWindow.Deactivated += OnDeactivated;
             desktop.MainWindow.ActualThemeVariantChanged += OnThemeChanged;
             if (isMicaCapable.Value && desktop.MainWindow is Window w)
-            {
                 RenderOptions.SetTextRenderingMode(w, TextRenderingMode.Antialias);
-            }
         }
         base.OnFrameworkInitializationCompleted();
     }
