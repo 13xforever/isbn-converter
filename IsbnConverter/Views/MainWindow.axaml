@@ -61,8 +61,8 @@
                     </Grid.RowDefinitions>
                     <!-- Input -->
                     <WrapPanel Grid.Row="0">
-                        <Label Target="{Binding ElementName=Isbn10}" RenderOptions.TextRenderingMode="Antialias">ISBN-10:</Label>
-                        <TextBox Name="Isbn10" Width="106" VerticalContentAlignment="Center"
+                        <Label Target="{Binding ElementName=Isbn10}" RenderOptions.TextRenderingMode="Antialias">ISBN-10</Label>
+                        <TextBox Name="Isbn10" Width="106" VerticalContentAlignment="Center" Margin="6 0"
                                  Text="{Binding Isbn10}"></TextBox>
                         <TextBlock Name="Isbn10Check" Margin="4 0 0 0" Width="24" Height="24"
                                    FontFamily="{Binding SymbolFontFamily}" FontSize="24"
@@ -81,7 +81,7 @@
                                        FontFamily="{Binding SymbolFontFamily}"
                             />
                         </Button>
-                        <Button Width="24" Height="24" Margin="4 0 28 0" Padding="0"
+                        <Button Width="24" Height="24" Margin="6 0 28 0" Padding="0"
                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                 Command="{Binding PasteCommand}" CommandParameter="{Binding ElementName=Isbn10, Path=Name}"
                         >
@@ -100,8 +100,8 @@
                     </Grid.RowDefinitions>
                     <!-- Input -->
                     <WrapPanel Grid.Row="0">
-                        <Label Target="{Binding ElementName=Isbn13}" RenderOptions.TextRenderingMode="Antialias">ISBN-13:</Label>
-                        <TextBox Name="Isbn13" Width="134" VerticalContentAlignment="Center"
+                        <Label Target="{Binding ElementName=Isbn13}" RenderOptions.TextRenderingMode="Antialias">ISBN-13</Label>
+                        <TextBox Name="Isbn13" Width="134" VerticalContentAlignment="Center" Margin="6 0"
                                  Text="{Binding Isbn13}"></TextBox>
                         <TextBlock Name="Isbn13Check" Margin="4 0 0 0" Width="24" Height="24"
                                    FontFamily="{Binding SymbolFontFamily}" FontSize="24"
@@ -120,7 +120,7 @@
                                        FontFamily="{Binding SymbolFontFamily}"
                             />
                         </Button>
-                        <Button Width="24" Height="24" Margin="4 0 28 0" Padding="0"
+                        <Button Width="24" Height="24" Margin="6 0 28 0" Padding="0"
                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                 Command="{Binding PasteCommand}" CommandParameter="{Binding ElementName=Isbn13, Path=Name}"
                         >
