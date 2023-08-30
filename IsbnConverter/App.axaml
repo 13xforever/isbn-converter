@@ -8,13 +8,15 @@
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
-  
-    <Application.Styles>
-        <FluentTheme />
-    </Application.Styles>
              
      <Application.Resources>
          <FontFamily x:Key="FontAwesome">avares://IsbnConverter/Assets/Fonts#Font Awesome 6 Free</FontFamily>
          <FontFamily x:Key="FontAwesomeSolid">avares://IsbnConverter/Assets/Fonts#Font Awesome 6 Free Solid</FontFamily>
      </Application.Resources>
+     
+     <Application.Styles>
+         <FluentTheme/>
+         <StyleInclude Source="Styles/Fluent2Styles.axaml"/>
+     </Application.Styles>
+             
 </Application>
