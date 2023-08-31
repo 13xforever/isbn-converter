@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IsbnConverter.Converters;assembly=IsbnConverter"
         mc:Ignorable="d" d:DesignWidth="440" d:DesignHeight="110"
-        Width="440" Height="110"
+        Width="474" Height="132"
         x:Class="IsbnConverter.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         
@@ -54,99 +54,72 @@
             </ExperimentalAcrylicBorder.Material>
         </ExperimentalAcrylicBorder>
         
-        <Grid VerticalAlignment="Top" Margin="8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="31"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" RenderOptions.TextRenderingMode="Antialias">ISBN Converter</TextBlock>
+        <StackPanel Margin="16">
+            <!-- title -->
+            <TextBlock Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12">ISBN Converter</TextBlock>
             
-            <WrapPanel Grid.Column="0" Grid.Row="1">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="24"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <!-- Input -->
-                    <WrapPanel Grid.Row="0">
-                        <Label Target="{Binding ElementName=Isbn10}">ISBN-10</Label>
-                        <TextBox Name="Isbn10" Width="106" VerticalContentAlignment="Center" Margin="6 0"
-                                 Text="{Binding Isbn10}"></TextBox>
-                        <TextBlock Name="Isbn10Check" Margin="4 0 0 0" Width="24" Height="24"
-                                   FontFamily="{Binding SymbolFontFamily}" FontSize="24"
-                                   Padding="0" VerticalAlignment="Center"
+            <!-- two main columns -->
+            <StackPanel Margin="0 12 0 0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <!-- isbn10 column -->
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Target="{Binding ElementName=Isbn10}" VerticalAlignment="Center" Padding="0">
+                            ISBN-10
+                        </Label>
+                        <TextBox Name="Isbn10" Width="100" Margin="12 0 0 0"
+                                 HorizontalContentAlignment="Right"
+                                 Text="{Binding Isbn10}"/>
+                        <TextBlock Name="Isbn10Check" Width="24" Margin="8 0"
+                                   VerticalAlignment="Center"
+                                   FontSize="24" FontFamily="{Binding SymbolFontFamily}"
                                    Classes.Success="{Binding Isbn10Valid}"
                                    Classes.Critical="{Binding !Isbn10Valid}"
                                    Text="{Binding Isbn10Valid, Converter={StaticResource ValidationSymbolConverter}}"/>
-                    </WrapPanel>
-                    <!-- Copy/Paste buttons -->
-                    <WrapPanel Grid.Row="1" Margin="4 12 4 4" HorizontalAlignment="Right">
-                        <Button Width="24" Height="24" Padding="0"
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 8 0 0" HorizontalAlignment="Right">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                 IsEnabled="{Binding !!Isbn10Valid}"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Command="{Binding CopyCommand}" CommandParameter="{Binding Isbn10}"
-                        >
-                            <TextBlock Text="{Binding CopySymbol}"
-                                       FontFamily="{Binding SymbolFontFamily}"
-                            />
+                                Command="{Binding CopyCommand}" CommandParameter="{Binding Isbn10}">
+                            <TextBlock Text="{Binding CopySymbol}" FontFamily="{Binding SymbolFontFamily}"/>
                         </Button>
-                        <Button Width="24" Height="24" Margin="6 0 28 0" Padding="0"
+                        <Button Margin="8 0 32 0"
                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Command="{Binding PasteCommand}" CommandParameter="{Binding ElementName=Isbn10, Path=Name}"
-                        >
-                            <TextBlock Text="{Binding PasteSymbol}"
-                                       FontFamily="{Binding SymbolFontFamily}"
-                            />
+                                Command="{Binding PasteCommand}" CommandParameter="{Binding ElementName=Isbn10, Path=Name}">
+                            <TextBlock Text="{Binding PasteSymbol}" FontFamily="{Binding SymbolFontFamily}"/>
                         </Button>
-                    </WrapPanel>
-                </Grid>
-            </WrapPanel>
-            <WrapPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="24"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <!-- Input -->
-                    <WrapPanel Grid.Row="0">
-                        <Label Target="{Binding ElementName=Isbn13}">ISBN-13</Label>
-                        <TextBox Name="Isbn13" Width="134" VerticalContentAlignment="Center" Margin="6 0"
-                                 Text="{Binding Isbn13}"></TextBox>
-                        <TextBlock Name="Isbn13Check" Margin="4 0 0 0" Width="24" Height="24"
-                                   FontFamily="{Binding SymbolFontFamily}" FontSize="24"
-                                   Padding="0" VerticalAlignment="Center"
+                    </StackPanel>
+                </StackPanel>
+                <!-- isbn13 column -->
+               <StackPanel Margin="16 0 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Target="{Binding ElementName=Isbn13}" VerticalAlignment="Center" Padding="0">
+                            ISBN-13
+                        </Label>
+                        <TextBox Name="Isbn13" Width="130" Margin="12 0 0 0"
+                                 HorizontalContentAlignment="Right"
+                                 Text="{Binding Isbn13}"/>
+                        <TextBlock Name="Isbn13Check" Width="24" Margin="8 0 0 0"
+                                   VerticalAlignment="Center"
+                                   FontSize="24" FontFamily="{Binding SymbolFontFamily}"
                                    Classes.Success="{Binding Isbn13Valid}"
                                    Classes.Critical="{Binding !Isbn13Valid}"
                                    Text="{Binding Isbn13Valid, Converter={StaticResource ValidationSymbolConverter}}"/>
-                    </WrapPanel>
-                    <!-- Copy/Paste buttons -->
-                    <WrapPanel Grid.Row="1" Margin="4 12 4 4" HorizontalAlignment="Right">
-                        <Button Width="24" Height="24" Padding="0"
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 8 0 0" HorizontalAlignment="Right">
+                        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                                 IsEnabled="{Binding !!Isbn13Valid}"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                Command="{Binding CopyCommand}" CommandParameter="{Binding Isbn13}"
-                        >
-                            <TextBlock Text="{Binding CopySymbol}"
-                                       FontFamily="{Binding SymbolFontFamily}"
-                            />
+                                Command="{Binding CopyCommand}" CommandParameter="{Binding Isbn13}">
+                            <TextBlock Text="{Binding CopySymbol}" FontFamily="{Binding SymbolFontFamily}"/>
                         </Button>
-                        <Button Width="24" Height="24" Margin="6 0 28 0" Padding="0"
+                        <Button Margin="8 0 32 0"
                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                Command="{Binding PasteCommand}" CommandParameter="{Binding ElementName=Isbn13, Path=Name}"
-                        >
-                            <TextBlock Text="{Binding PasteSymbol}"
-                                       FontFamily="{Binding SymbolFontFamily}"
-                            />
+                                Command="{Binding PasteCommand}" CommandParameter="{Binding ElementName=Isbn13, Path=Name}">
+                            <TextBlock Text="{Binding PasteSymbol}" FontFamily="{Binding SymbolFontFamily}"/>
                         </Button>
-                    </WrapPanel>
-                </Grid>
-            </WrapPanel>
-        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
     </Panel>
 
 </Window>
