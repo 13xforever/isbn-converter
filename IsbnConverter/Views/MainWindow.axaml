@@ -67,7 +67,7 @@
                             ISBN-10
                         </Label>
                         <TextBox Name="Isbn10" Width="100" Margin="12 0 0 0"
-                                 HorizontalContentAlignment="Right"
+                                 HorizontalContentAlignment="Right" MaxLines="1"
                                  Text="{Binding Isbn10}"/>
                         <TextBlock Name="Isbn10Check" Width="24" Margin="8 0"
                                    VerticalAlignment="Center"
@@ -96,7 +96,7 @@
                             ISBN-13
                         </Label>
                         <TextBox Name="Isbn13" Width="130" Margin="12 0 0 0"
-                                 HorizontalContentAlignment="Right"
+                                 HorizontalContentAlignment="Right" MaxLines="1"
                                  Text="{Binding Isbn13}"/>
                         <TextBlock Name="Isbn13Check" Width="24" Margin="8 0 0 0"
                                    VerticalAlignment="Center"
