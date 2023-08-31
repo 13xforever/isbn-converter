@@ -12,4 +12,6 @@ public class ThemeConsts
     public const double DarkThemeTintOpacity = 0.8;
     public const double DarkThemeMaterialOpacity = 0.8;
     public const double DarkThemeLuminosityOpacity = 0;
+
+    public const string BrandColor = "#0094ff";
 }

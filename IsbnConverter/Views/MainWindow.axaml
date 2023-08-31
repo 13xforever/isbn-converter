@@ -18,7 +18,7 @@
         
         Background="Transparent"
         TransparencyLevelHint="Mica, AcrylicBlur, Blur"
-        FontSize="12"
+        RenderOptions.TextRenderingMode="Antialias"
         
         Icon="/Assets/barcodes.ico"
         Title="ISBN Converter">
@@ -32,14 +32,27 @@
     <Window.Resources>
         <local:ColorConverter x:Key="ColorConverter"/>
         <local:ValidationSymbolConverter x:Key="ValidationSymbolConverter"/>
-        <local:ValidationColorConverter x:Key="ValidationColorConverter"/>
     </Window.Resources>
 
     <Panel>
-        <Border IsHitTestVisible="False"
-                Background="{Binding TintColor}"
-                IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=!IsActive}"
-        />
+        <Border IsHitTestVisible="False" Background="{Binding TintColor}"
+                IsVisible="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=!IsActive}"/>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <Binding  Path="!MicaEnabled"/>
+                    <Binding  Path="AcrylicEnabled"/>
+                </MultiBinding>
+            </ExperimentalAcrylicBorder.IsVisible>
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="{Binding TintColor, Converter={StaticResource ColorConverter}}"
+                    TintOpacity="{Binding TintOpacity}"
+                    MaterialOpacity="0.5"
+                />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
         
         <Grid VerticalAlignment="Top" Margin="8">
             <Grid.ColumnDefinitions>
@@ -61,13 +74,14 @@
                     </Grid.RowDefinitions>
                     <!-- Input -->
                     <WrapPanel Grid.Row="0">
-                        <Label Target="{Binding ElementName=Isbn10}" RenderOptions.TextRenderingMode="Antialias">ISBN-10</Label>
+                        <Label Target="{Binding ElementName=Isbn10}">ISBN-10</Label>
                         <TextBox Name="Isbn10" Width="106" VerticalContentAlignment="Center" Margin="6 0"
                                  Text="{Binding Isbn10}"></TextBox>
                         <TextBlock Name="Isbn10Check" Margin="4 0 0 0" Width="24" Height="24"
                                    FontFamily="{Binding SymbolFontFamily}" FontSize="24"
-                                   Padding="0" VerticalAlignment="Center" RenderOptions.TextRenderingMode="Antialias"
-                                   Foreground="{Binding Isbn10Valid, Converter={StaticResource ValidationColorConverter}}"
+                                   Padding="0" VerticalAlignment="Center"
+                                   Classes.Success="{Binding Isbn10Valid}"
+                                   Classes.Critical="{Binding !Isbn10Valid}"
                                    Text="{Binding Isbn10Valid, Converter={StaticResource ValidationSymbolConverter}}"/>
                     </WrapPanel>
                     <!-- Copy/Paste buttons -->
@@ -100,13 +114,14 @@
                     </Grid.RowDefinitions>
                     <!-- Input -->
                     <WrapPanel Grid.Row="0">
-                        <Label Target="{Binding ElementName=Isbn13}" RenderOptions.TextRenderingMode="Antialias">ISBN-13</Label>
+                        <Label Target="{Binding ElementName=Isbn13}">ISBN-13</Label>
                         <TextBox Name="Isbn13" Width="134" VerticalContentAlignment="Center" Margin="6 0"
                                  Text="{Binding Isbn13}"></TextBox>
                         <TextBlock Name="Isbn13Check" Margin="4 0 0 0" Width="24" Height="24"
                                    FontFamily="{Binding SymbolFontFamily}" FontSize="24"
-                                   Padding="0" VerticalAlignment="Center" RenderOptions.TextRenderingMode="Antialias"
-                                   Foreground="{Binding Isbn13Valid, Converter={StaticResource ValidationColorConverter}}"
+                                   Padding="0" VerticalAlignment="Center"
+                                   Classes.Success="{Binding Isbn13Valid}"
+                                   Classes.Critical="{Binding !Isbn13Valid}"
                                    Text="{Binding Isbn13Valid, Converter={StaticResource ValidationSymbolConverter}}"/>
                     </WrapPanel>
                     <!-- Copy/Paste buttons -->

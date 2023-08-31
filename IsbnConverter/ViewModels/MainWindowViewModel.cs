@@ -2,22 +2,13 @@
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace IsbnConverter.ViewModels;
 
-public partial class MainWindowViewModel : ObservableObject
+public partial class MainWindowViewModel : ViewModelBase
 {
-    [ObservableProperty] private string tintColor = "#ffffff";
-
-    [NotifyPropertyChangedFor(nameof(CopySymbol))]
-    [NotifyPropertyChangedFor(nameof(PasteSymbol))]
-    [ObservableProperty] private FontFamily symbolFontFamily = new("avares://IsbnConverter/Assets/Fonts#Font Awesome 6 Free");
-    public string CopySymbol => SymbolFontFamily.Name is "Segoe Fluent Icons" ? "\ue8c8" : "\uf0c5"; 
-    public string PasteSymbol => SymbolFontFamily.Name is "Segoe Fluent Icons" ? "\ue77f" : "\uf0ea"; 
-    
     [ObservableProperty] private string isbn10 = "";
     [ObservableProperty] private string isbn13 = "";
     [ObservableProperty] private bool? isbn10Valid = null;
