@@ -56,7 +56,7 @@
         
         <StackPanel Margin="12">
             <!-- title -->
-            <TextBlock Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12">ISBN Converter</TextBlock>
+            <TextBlock Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" IsHitTestVisible="False">ISBN Converter</TextBlock>
             
             <!-- two main columns -->
             <StackPanel Margin="0 12 0 0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
